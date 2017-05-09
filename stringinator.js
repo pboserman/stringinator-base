@@ -1,29 +1,34 @@
 const _ = require('./underbar');
 
-const first = function(str, n) {
-  // Your code goes here
+const first = function(str, n = 1) {
+  // return _.reduce(_.first(str.split(''), n), (a, b) => a + b);
+  return str.slice(0, n);
 };
 
-const last = function(str, n) {
-  // Your code goes here
+const last = function(str, n = 1) {
+  return _.reduce(_.last(str.split(''), n), (a, b) => a + b);
 };
 
 const removeChar = function(str, target) {
-  // hint: use _.reject
-  // Your code goes here
+  return _.reduce(_.reject(str.split(''), a => a === target), (a, b) => a + b);
 };
 
 const hasChar = function(str, target) {
-  // hint: use _.some
-  // Your code goes here
+  let strArr = str.split('');
+  return _.some(strArr, a => a === target);
 };
 
 const isOnlyDigits = function(str) {
-  // Your code goes here
+  // let nums = '0123456789'.split('');
+  // return _.every(str.split(''), a => a in nums);
+  return !str.replace(/[0-9]/g, '');
 };
 
 const filterToOnlyDigits = function(str) {
-  // Your code goes here
+  // let nums = '0123456789'.split('');
+  // let filterArr = _.filter(str.split(''), a => a in nums);
+  // return filterArr.length !== 0 ? _.reduce(filterArr, (a, b) => a + b) : '';
+  return str.replace(/[^0-9]/g, '');
 };
 
 const truncateString = function(val, maxLength) {
@@ -32,16 +37,20 @@ const truncateString = function(val, maxLength) {
 };
 
 const truncateLongItems = function(obj, maxLength) {
-  // hint: use truncateString above
-  // Your code goes here
+  return _.map(obj, a => truncateString(a, maxLength));
 };
 
 const countChars = function(str) {
-  // Your code goes here
+  const charCounts = {};
+  _.each(str.split(''), (a) => {
+    return !!charCounts[a] ? charCounts[a] += 1 : charCounts[a] = 1;
+  });
+  return charCounts;
 };
 
 const dedup = function(str) {
   // Your code goes here
+  return _.reduce(_.uniq(str.split('')), (a, b) => a + b);
 };
 
 module.exports = {
